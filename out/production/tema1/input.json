@@ -1,0 +1,102 @@
+{
+  "companies": [
+    {
+      "name": "Amazon",
+      "manager": "Jeff Bezos",
+      "departments": [
+        "IT",
+        "Management",
+        "Marketing",
+        "Finance"
+      ],
+      "recruiters": [
+        "Darrell Lillie",
+        "Damian Bodhi"
+      ],
+      "employees": [
+        "Harmony Lorinda",
+        "Shana Addy",
+        "Leyla Stacy",
+        "Jarred Egbert",
+        "Bethney Kiara"
+      ],
+      "jobs": [
+        {
+          "numejob": "Software Developer Engineer",
+          "numecompanie": "Amazon",
+          "flag": "true",
+          "nrcandidati": 1,
+          "salariu": 12000,
+          "infanabs": 2014,
+          "supanabs": 2020,
+          "infexp": 1,
+          "supexp": null,
+          "infmedie": 9,
+          "supmedie": null
+        },
+        {
+          "numejob": "Software Developer Engineer Intern",
+          "numecompanie": "Amazon",
+          "flag": "true",
+          "nrcandidati": 1,
+          "salariu": 6000,
+          "infanabs": null,
+          "supanabs": null,
+          "infexp": 0,
+          "supexp": 2,
+          "infmedie": 9.35,
+          "supmedie": null
+        }
+      ]
+    },
+    {
+      "name": "Google",
+      "manager": "Sundar Pichai",
+      "departments": [
+        "IT",
+        "Management",
+        "Marketing",
+        "Finance"
+      ],
+      "recruiters": [
+        "Jonie Phillip",
+        "Janine Woody"
+      ],
+      "employees": [
+        "Rolland Lyla",
+        "Steward Goodwin",
+        "Molly Rylie",
+        " Morley Denise",
+        "Bryson Reenie"
+      ],
+      "jobs": [
+        {
+          "numejob": "Software Developer Engineer",
+          "numecompanie": "Google",
+          "flag": "true",
+          "nrcandidati": 1,
+          "salariu": 10000,
+          "infanabs": 2002,
+          "supanabs": 2020,
+          "infexp": 2,
+          "supexp": 6,
+          "infmedie": 8,
+          "supmedie": null
+        },
+        {
+          "numejob": "Software Developer Engineer Intern",
+          "numecompanie": "Google",
+          "flag": "true",
+          "nrcandidati": 1,
+          "salariu": 5000,
+          "infanabs": null,
+          "supanabs": null,
+          "infexp": 0,
+          "supexp": 2,
+          "infmedie": 9,
+          "supmedie": null
+        }
+      ]
+    }
+  ]
+}
