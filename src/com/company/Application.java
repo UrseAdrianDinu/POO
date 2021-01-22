@@ -6,6 +6,8 @@ import java.util.List;
 class Application {
     ArrayList<Company> companies;
     ArrayList<User> utilizatori;
+
+    //Singleton pattern - instantiere întârziată.
     private static Application instance = null;
 
     private Application() {
@@ -66,6 +68,7 @@ class Application {
         return jobs;
     }
 
+    //Metoda care cauta un user dupa id, folosita pentru a crea reteaua sociala
     public User getUser(Long id) {
         for (User u : utilizatori) {
             if (u.id == id)
@@ -74,6 +77,7 @@ class Application {
         return null;
     }
 
+    //Metoda care cauta un angajat dupa id, folosita pentru a crea reteaua sociala
     public Employee getEmployee(Long id) {
         for (Company c : companies) {
             for (Department d : c.departments) {
@@ -86,6 +90,7 @@ class Application {
         return null;
     }
 
+    //Metoda care cauta un recruiter dupa id, folosita pentru a crea reteaua sociala
     public Recruiter getRectuiter(Long id) {
         for (Company c : companies) {
             for (Recruiter r : c.recruiters) {
@@ -96,13 +101,96 @@ class Application {
         return null;
     }
 
+    //Metoda care cauta un user dupa numele complet/nume, folosita pentru Profile Page
     public User getUser(String nume) {
         for (User u : utilizatori) {
             String fullname = u.cv.datepersonale.getPrenume() + " " + u.cv.datepersonale.getNume();
             String name = u.cv.datepersonale.getPrenume();
-            if(fullname.compareTo(nume)==0 || name.compareTo(nume)==0)
+            if (fullname.compareTo(nume) == 0 || name.compareTo(nume) == 0)
                 return u;
 
+        }
+        return null;
+    }
+
+    //Metoda care cauta un angajat dupa numele complet/nume, folosita pentru Profile Page
+    public Employee getEmployee(String nume) {
+        for (Company c : companies) {
+            for (Department d : c.departments) {
+                for (Employee e : d.getEmployees()) {
+                    String fullname = e.cv.datepersonale.getPrenume() + " " + e.cv.datepersonale.getNume();
+                    String name = e.cv.datepersonale.getPrenume();
+                    if (fullname.compareTo(nume) == 0 || name.compareTo(nume) == 0)
+                        return e;
+                }
+            }
+        }
+        return null;
+    }
+
+    //Metoda care cauta un recruiter dupa numele complet/nume, folosita pentru Profile Page
+    public Recruiter getRecruiter(String nume) {
+        for (Company c : companies) {
+            for (Recruiter r : c.recruiters) {
+                String fullname = r.cv.datepersonale.getPrenume() + " " + r.cv.datepersonale.getNume();
+                String name = r.cv.datepersonale.getPrenume();
+                if (fullname.compareTo(nume) == 0 || name.compareTo(nume) == 0)
+                    return r;
+            }
+        }
+        return null;
+    }
+
+    //Metoda care cauta un manager dupa numele complet/nume, folosita pentru Profile Page
+    public Manager getManager(String nume) {
+        for (Company c : companies) {
+            String fullname = c.manager.cv.datepersonale.getPrenume() + " " + c.manager.cv.datepersonale.getNume();
+            String name = c.manager.cv.datepersonale.getPrenume();
+            if (fullname.compareTo(nume) == 0 || name.compareTo(nume) == 0)
+                return c.manager;
+        }
+        return null;
+    }
+
+
+    //Metoda care cauta un user dupa email, folosita pentru sistemul de autentificare
+    public User getUserByEmail(String email) {
+        for (User u : utilizatori) {
+            if (u.cv.datepersonale.getEmail().compareTo(email) == 0)
+                return u;
+        }
+        return null;
+    }
+
+    //Metoda care cauta un manager dupa email, folosita pentru sistemul de autentificare
+    public Manager getManagerByEmail(String email) {
+        for (Company c : companies) {
+            if (c.manager.cv.datepersonale.getEmail().compareTo(email) == 0)
+                return c.manager;
+        }
+        return null;
+    }
+
+    //Metoda care cauta un anagajat dupa email, folosita pentru sistemul de autentificare
+    public Employee getEmployeeByEmail(String mail) {
+        for (Company c : companies) {
+            for (Department d : c.departments) {
+                for (Employee e : d.angajati)
+                    if (e.cv.datepersonale.getEmail().compareTo(mail) == 0 && c.recruiters.contains(e) == false)
+                        return e;
+            }
+        }
+        return null;
+    }
+
+    //Metoda care cauta un recruiter dupa email, folosita pentru sistemul de autentificare
+    public Recruiter getRecruiterByEmail(String mail) {
+        for (Company c : companies) {
+            for (Recruiter r : c.recruiters) {
+                if (r.cv.datepersonale.getEmail().compareTo(mail) == 0) {
+                    return r;
+                }
+            }
         }
         return null;
     }

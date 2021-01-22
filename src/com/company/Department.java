@@ -33,11 +33,15 @@ abstract class Department {
     }
 
     public void add(Job job) {
+        //Am adaugat jobul in lista de joburi
         jobs.add(job);
+        //Am creat o notificare noua
         Notification n = new Notification("Exista un job nou - " + job.numejob + " - in compania " + job.numecompanie);
         Application app = Application.getInstance();
         Company c = app.getCompany(job.numecompanie);
+        //Am setat notificarea companiei la n
         c.notification = n;
+        //Am notificat toti observerii
         c.notifyAllObservers();
     }
 

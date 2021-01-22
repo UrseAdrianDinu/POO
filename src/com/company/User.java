@@ -15,6 +15,7 @@ class User extends Consumer implements Observer {
         this.companies = companies;
         this.id = id;
         Application app = Application.getInstance();
+        //Adaug utilizatorul in lista de observers ale companiilor pe care le urmareste
         for (String s : companies) {
             Company c = app.getCompany(s);
             c.addObserver(this);
@@ -29,13 +30,17 @@ class User extends Consumer implements Observer {
 
     public Double getTotalScore() {
         double aniexperinta = 0;
+        //Parcurg colectia experienta
         for (Experience e : cv.experienta) {
+            //Calculez perioada de timp dintre data de inceput si data de sfarsit
             Period period = Period.between(e.datainceput, e.datasfarsit);
             aniexperinta += period.getYears();
+            //Daca numarul lunilor este mai mare de 3
+            //atunci numarul de ani creste cu 1
             if (period.getMonths() > 3)
                 aniexperinta += 1;
         }
-        return aniexperinta * 1.5 + super.meanGPA();
+        return aniexperinta * 1.5 + meanGPA();
     }
 
     public void update(Notification notification) {

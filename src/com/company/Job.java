@@ -31,29 +31,33 @@ class Job {
     public void apply(User user) {
         Application app = Application.getInstance();
         Company c = app.getCompany(numecompanie);
+            //Selectez recruiter-ul cel mai indepartat
         Recruiter r = c.getRecruiter(user);
+        //Calculez scorul
         double scor = r.evaluate(this, user);
+        //Adaug user-ul in lista de candidati
         listacandidati.add(user);
+        //Adaug user-ul in lista de observers ai companiei
         if (c.observers.contains(user) == false)
             c.addObserver(user);
     }
 
     public boolean meetsRequirments(User user) {
-        boolean flag = true;
+
         if (user.getGraduationYear() != null) {
             int graduationyear = user.getGraduationYear();
             if (anabsolvire.limitasuperioara != null && anabsolvire.limitainferioara != null)
+                //Daca anul de absolvire nu incadreaza intre limite, atunci returnez false
                 if (graduationyear < anabsolvire.limitainferioara || graduationyear > anabsolvire.limitasuperioara) {
-                    flag = false;
-                    return flag;
+                    return false;
                 }
         } else {
-            if (anabsolvire.limitainferioara == null) {
-                flag = true;
-                return true;
+            //Cazul in care user-ul are anul de absolvire null
+            //si limita inferioara a jobului este diferita de null
+            //atunci returnez false
+            if (anabsolvire.limitainferioara != null) {
+                return false;
             }
-            flag = false;
-            return flag;
         }
         double aniexperinta = 0;
         for (Experience e : user.cv.experienta) {
@@ -63,19 +67,31 @@ class Job {
                 aniexperinta += 1;
         }
         if (nraniexperienta.limitasuperioara != null) {
+            //Daca numarul anilor experienta nu se incadreaza intre limite, atunci returnez false
             if (aniexperinta < nraniexperienta.limitainferioara || aniexperinta > nraniexperienta.limitasuperioara) {
-                flag = false;
-                return flag;
+                return false;
+            }
+        } else {
+            //Daca limita superioara este nula si limita inferioara este mai mare
+            //decat numarul anilor de experienta, atunci returnez false
+            if (aniexperinta < nraniexperienta.limitainferioara) {
+                return false;
             }
         }
         double medie = user.meanGPA();
         if (medieacademica.limitasuperioara != null) {
+            //Daca media academica nu incadreaza in limite, atunci returnze false
             if (medie < medieacademica.limitainferioara || medie > medieacademica.limitasuperioara) {
-                flag = false;
-                return flag;
+                return false;
+            }
+        } else {
+            //Daca limita superiara este nula si limita inferioara este mai mare
+            //decat media academica, atunci returnez false
+            if (medie < medieacademica.limitainferioara) {
+                return false;
             }
         }
-        return flag;
+        return true;
     }
 
     public String toString() {

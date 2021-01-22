@@ -8,8 +8,10 @@ class Finance extends Department {
     public double getTotalSalaryBudget() {
         double suma = 0;
         for (Employee e : super.angajati) {
+            //Am calculat vechimea angajatului
             LocalDate date = LocalDate.now();
             Period period = Period.between(e.cv.experienta.first().datainceput, date);
+            //Daca vechimea este mai mica de 1 an, impozitul este 10%
             if (period.getYears() < 1) {
                 suma += e.salariu + 0.1 * e.salariu;
             } else
@@ -18,7 +20,7 @@ class Finance extends Department {
         return suma;
     }
 
-    @Override
+    //Metoda care intoarce tipul departamentului
     public String getType() {
         return "Finance";
     }

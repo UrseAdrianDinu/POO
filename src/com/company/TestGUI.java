@@ -116,8 +116,8 @@ public class TestGUI {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -454,8 +454,8 @@ public class TestGUI {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -673,6 +673,7 @@ public class TestGUI {
             Department d = c.getDepartment("IT");
             d.add(j);
         }
+
         for (User u : app.utilizatori) {
             for (String s : u.companies) {
                 Company c = app.getCompany(s);
@@ -682,26 +683,8 @@ public class TestGUI {
             }
         }
 
-        HashMap<String, Double> scoruri = new HashMap<>();
-        for (Company c : app.companies) {
-            for (Request r : c.manager.cereri) {
-                User u = (User) r.getValue1();
-                String nume = u.cv.datepersonale.getNume() + " " + u.cv.datepersonale.getPrenume();
-                Double scor = r.getScore();
-                if (scoruri.containsKey(nume) == false)
-                    scoruri.put(nume, scor);
-            }
-        }
-        System.out.println("Scoruri");
-        System.out.println(scoruri + "\n");
         GUI gui = new GUI("EJobs");
 
-//
-//        for (Company c : app.companies) {
-//            for (Job j : c.getJobs()) {
-//                c.manager.process(j);
-//            }
-//        }
     }
 }
 

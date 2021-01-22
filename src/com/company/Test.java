@@ -21,6 +21,7 @@ public class Test {
         JSONParser jsonParser = new JSONParser();
         Application app = Application.getInstance();
         ArrayList<Job> jobs = new ArrayList<>();
+        //Citire fisier de intrare pentru companii si job-uri
         try {
             File file = new File("src/input.json");
             String path = file.getAbsolutePath();
@@ -100,7 +101,7 @@ public class Test {
             e.printStackTrace();
         }
 
-
+        //Citire fisier consumers.json
         try {
             File file = new File("src/consumers.json");
             String path = file.getAbsolutePath();
@@ -116,8 +117,8 @@ public class Test {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -228,8 +229,8 @@ public class Test {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -339,8 +340,8 @@ public class Test {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -454,8 +455,8 @@ public class Test {
 
                 String name = (String) jo.get("name");
                 String[] array = name.split(" ");
-                String nume = array[0];
-                String prenume = array[1];
+                String nume = array[1];
+                String prenume = array[0];
 
                 String email = (String) jo.get("email");
 
@@ -562,7 +563,7 @@ public class Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        //Citire fisier de intrare pentru reteaua sociala
         try {
             File file = new File("src/reteasociala.json");
             String path = file.getAbsolutePath();
@@ -668,12 +669,15 @@ public class Test {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for(Job j:jobs)
-        {
-            Company c=app.getCompany(j.numecompanie);
-            Department d=c.getDepartment("IT");
+
+        //Am adaugat joburile in departamentele IT ale companiilor
+        for (Job j : jobs) {
+            Company c = app.getCompany(j.numecompanie);
+            Department d = c.getDepartment("IT");
             d.add(j);
         }
+
+        //Utilizatorii din aplicatie aplica pentru joburile din companiile preferate
         for (User u : app.utilizatori) {
             for (String s : u.companies) {
                 Company c = app.getCompany(s);
@@ -694,7 +698,9 @@ public class Test {
             }
         }
         System.out.println("Scoruri");
-        System.out.println(scoruri+"\n");
+        System.out.println(scoruri + "\n");
+
+        //Managerii proceseaza joburile disponibile
         for (Company c : app.companies) {
             for (Job j : c.getJobs()) {
                 c.manager.process(j);

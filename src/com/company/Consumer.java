@@ -8,13 +8,13 @@ abstract class Consumer {
 
     public Consumer(Resume cv) {
         this.cv = cv;
-        cunoscuti=new ArrayList<>();
+        cunoscuti = new ArrayList<>();
     }
 
     static class Resume {
-        Information datepersonale;
-        TreeSet<Education> educatie;
-        TreeSet<Experience> experienta;
+        Information datepersonale; //required
+        TreeSet<Education> educatie; //required
+        TreeSet<Experience> experienta; //optional
 
         private Resume(ResumeBuilder builder) throws ResumeIncompleteException {
             if (builder.experienta != null && builder.datepersonale != null) {
@@ -22,6 +22,8 @@ abstract class Consumer {
                 this.educatie = builder.educatie;
                 this.experienta = builder.experienta;
             } else {
+                //Daca builder-ul nu contine Information sau nu contine Experince
+                //atunci se arunca exceptia ResumeIncompleteException
                 throw new ResumeIncompleteException("Incomplete Resume");
             }
         }
@@ -64,8 +66,11 @@ abstract class Consumer {
     }
 
     public int getDegreeInFriendship(Consumer consumer) {
+        //Lista pentru a marca consumerii vizitati
         ArrayList<Consumer> visited = new ArrayList<>();
         Queue<Consumer> queue = new LinkedList<>();
+        //Dictionar care retine gradul de prietenie cu toti prietenii consumer-ului curent
+        // [Consumer = grad]
         HashMap<Consumer, Integer> degrees = new HashMap<>();
         visited.add(this);
         queue.add(this);
@@ -80,7 +85,8 @@ abstract class Consumer {
                 }
             }
         }
-
+        //Daca dictionarul de grade contine consumer-ul dat ca paramteru
+        //atunci returnez valoarea lui din dictionar
         if (degrees.containsKey(consumer))
             return degrees.get(consumer);
         else
@@ -92,7 +98,10 @@ abstract class Consumer {
     }
 
     public Integer getGraduationYear() {
+        //Parcurg colectia education
         for (Education e : cv.educatie) {
+            //Daca nivelul este college si data de sfarsit nu este nula
+            //atunci o returnez
             if (e.nivel.compareTo("college") == 0) {
                 if (e.datasfarsit != null)
                     return e.datasfarsit.getYear();
@@ -102,12 +111,13 @@ abstract class Consumer {
     }
 
     public Double meanGPA() {
-        Iterator<Education> it = cv.educatie.iterator();
+
         double k = 0;
         double s = 0;
-        while (it.hasNext()) {
+        //Am parcurs colectia educatie si am facut media
+        for (Education e : cv.educatie) {
             k++;
-            s += it.next().mediafinalizare;
+            s += e.mediafinalizare;
         }
         return s / k;
     }

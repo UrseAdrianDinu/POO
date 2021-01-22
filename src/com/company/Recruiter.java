@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Recruiter extends Employee {
-    int rating;
+    double rating;
     Long id;
 
     public Recruiter(Resume cv, String numecompanie, long salariu, Long id) {
@@ -14,11 +14,14 @@ class Recruiter extends Employee {
     }
 
     public int evaluate(Job job, User user) {
-        int old = rating;
+        //Am salvat rating-ul curent al recruiter-ului
+        double old = rating;
         rating += 0.1;
         Application app = Application.getInstance();
         Company c = app.getCompany(job.numecompanie);
+        //Calculez scorul
         double evaluatescore = old * user.getTotalScore();
+        //Adaug cererea in lista de cereri a managerului
         c.manager.cereri.add(new Request(job, user, this, evaluatescore));
         return (int) evaluatescore;
     }

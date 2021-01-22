@@ -659,7 +659,7 @@
             "email": "thaci@gmail.com",
             "phone": "+4444444444",
             "date_of_birth": "15.02.1988",
-            "genre": "make",
+            "genre": "female",
             "languages": ["English"],
             "languages_level": ["Experienced"],
             "interested_companies": ["Google", "Amazon"],
@@ -778,7 +778,7 @@
         },
         {
             "name": "Jeff Bezos",
-            "email": "jbezos@amaon.com",
+            "email": "jbezos@amazon.com",
             "phone": "+4444444444",
             "date_of_birth": "12.01.1964",
             "genre": "male",

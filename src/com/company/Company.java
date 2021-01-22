@@ -84,12 +84,18 @@ class Company implements Subject {
 
         Recruiter r = null;
         int maxdegree = 0;
+        //Am parcurs lista de recruiteri
         for (Recruiter rec : recruiters) {
+            //AM calculat gradul de prietenie dintre user si recruiterul curent
             int k = user.getDegreeInFriendship(rec);
+            //Daca este mai mare gradul maxim ii preia valoarea
+            //Si recruiterul cel mai indepartat ia valoarea recruiterului curent
             if (k > maxdegree) {
                 maxdegree = k;
                 r = rec;
             }
+            //Daca recruiterul curent are acelasi grad
+            //atunci comparatia se face dupa rating
             if (k == maxdegree && r != null) {
                 if (rec.rating > r.rating)
                     r = rec;
@@ -106,6 +112,7 @@ class Company implements Subject {
         return jobs;
     }
 
+    //Cautarea unui departament dupa un job
     public Department getDepartment(Job job) {
         for (Department d : departments) {
             if (d.jobs.contains(job))
@@ -128,6 +135,7 @@ class Company implements Subject {
         }
     }
 
+    //Cautarea unui departament dupa tipul departamentului
     public Department getDepartment(String tip) {
         for (Department d : departments) {
             if (d.getType().compareTo(tip) == 0)
